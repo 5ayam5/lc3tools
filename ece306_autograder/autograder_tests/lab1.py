@@ -9,8 +9,9 @@ class TestLab1(unittest.TestCase):
             with open(file, 'r') as f:
                 lines = f.read()
                 print(lines)
-                if lines.splitlines()[-2].startswith('Total points earned:'):
-                    return float(lines[-2].split()[-1][1:-2])
+                lines = lines.splitlines()
+                if lines[-1].startswith('Total points earned:'):
+                    return float(lines[-1].split()[-1][1:-2])
                 else:
                     return 0.0
         except:
