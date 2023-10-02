@@ -2,5 +2,5 @@
 
 void setup(Tester &tester)
 {
-    lab1_setup(160, 314, tester);
+    lab1_setup(160, 314, tester, false);
 }

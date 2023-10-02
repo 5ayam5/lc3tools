@@ -41,8 +41,8 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
     sim.run();
 
     uint8_t mask = verify_sum(sim, a, b);
-    tester.verify("Testx3502", mask & 0b01, total_points * frac);
-    tester.verify("Testx3503", mask & 0b10, total_points * (1 - frac));
+    tester.verify("Test x3502", mask & 0b01, total_points * frac);
+    tester.verify("Test x3503", mask & 0b10, total_points * (1 - frac));
 }
 
 void testBringup(lc3::sim &sim)
@@ -55,10 +55,12 @@ void testTeardown(lc3::sim &sim) {}
 
 void shutdown(void) {}
 
-void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester)
+void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
 {
     std::mt19937 mt(seed);
-    tester.registerTest("ZeroTest", ZeroTest, 1, true);
+
+    if (isPublic)
+        tester.registerTest("ZeroTest", ZeroTest, 1, true);
 
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
@@ -66,21 +68,21 @@ void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester)
         std::stringstream stream;
         stream << std::hex << std::uppercase;
 
-        auto test = [&stream, &tester](std::string test_name, uint16_t a, uint16_t b)
+        auto test = [&stream, &tester](std::string test_name, uint16_t a, uint16_t b, double frac)
         {
             stream.str("");
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << a;
             stream << "_";
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << b;
 
-            auto testUnsigned = [a, b](lc3::sim &sim, Tester &tester, double total_points)
-            { Test(a, b, 0.8, sim, tester, total_points); };
-            tester.registerTest(test_name + stream.str(), testUnsigned, 1, true);
+            auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
+            { Test(a, b, frac, sim, tester, total_points); };
+            tester.registerTest(test_name + "_" + stream.str(), test, 1, true);
         };
 
-        test("TestUnsigned", A & 0x00FF, B & 0x00FF);
-        test("TestSigned", A & 0xFF00, B & 0xFF00);
-        test("TestBoth", A, B);
+        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 0.8);
+        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.2);
+        test("TestBoth", A, B, 0.5);
     }
 }
 
