@@ -61,3 +61,5 @@ frontend/gui/thumbs.db
 frontend/gui/!.gitkeep
 frontend/gui/local_modules/lc3interface/build/
 frontend/gui/local_modules/lc3interface/build/
+
+.vscode/settings.json
