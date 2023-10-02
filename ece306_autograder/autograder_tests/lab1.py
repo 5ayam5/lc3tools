@@ -18,14 +18,14 @@ class TestLab1(unittest.TestCase):
 
     @partial_credit(30)
     @visibility('visible')
-    def public_test_case(self, set_score=None):
+    def test_public(self, set_score=None):
         """Public test case"""
         set_score(self._get_score(
             '/autograder/submission/public.out') / 100 * 30)
 
     @partial_credit(50)
     @visibility('after_published')
-    def private_test_case(self, set_score=None):
+    def test_private(self, set_score=None):
         """Private test case"""
         set_score(self._get_score(
             '/autograder/submission/private.out') / 100 * 80)
