@@ -29,4 +29,4 @@ class TestLab1(unittest.TestCase):
     def test_private(self, set_score=None):
         """Private test case"""
         set_score(self._get_score(
-            '/autograder/submission/private.out') / 100 * 80)
+            '/autograder/submission/private.out') / 100 * 50)
