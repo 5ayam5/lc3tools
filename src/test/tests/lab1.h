@@ -4,6 +4,7 @@
 #define API_VER 2
 #include "framework.h"
 #include <random>
+#include <iomanip>
 
 uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
 {
