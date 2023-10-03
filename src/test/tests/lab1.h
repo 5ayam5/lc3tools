@@ -23,14 +23,14 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
     return ret;
 }
 
-void ZeroTest(lc3::sim &sim, Tester &tester, double total_points)
+void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
 {
     sim.writeMem(0x3500, 0x6FA2);
     sim.writeMem(0x3501, 0xB0B7);
 
     sim.run();
 
-    tester.verify("ZeroTest", verify_sum(sim, 0x6FA2, 0xB0B7) & 0b11, total_points);
+    tester.verify("Example 1", (verify_sum(sim, 0x6FA2, 0xB0B7) & 0b11) == 0b11, total_points);
 }
 
 void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, double total_points)
@@ -60,7 +60,7 @@ void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic
     std::mt19937 mt(seed);
 
     if (isPublic)
-        tester.registerTest("ZeroTest", ZeroTest, 1, true);
+        tester.registerTest("ExampleTest", ExampleTest, 1, true);
 
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
