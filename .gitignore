@@ -63,3 +63,4 @@ frontend/gui/local_modules/lc3interface/build/
 frontend/gui/local_modules/lc3interface/build/
 
 .vscode/settings.json
+__pycache__

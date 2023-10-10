@@ -2,7 +2,7 @@ import unittest
 from gradescope_utils.autograder_utils.decorators import partial_credit, visibility
 
 
-class TestLab1(unittest.TestCase):
+class TestLab(unittest.TestCase):
     def _get_score(self, file):
         print(file)
         try:
